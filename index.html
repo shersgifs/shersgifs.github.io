@@ -33,7 +33,7 @@
     }
     .gif-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 30px;
       justify-items: center;
       margin-top: 30px;
@@ -43,6 +43,7 @@
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 0 12px #00ffa633;
+      max-width: 300px;
     }
     img {
       width: 100%;
@@ -74,6 +75,21 @@
       height: 30px;
       border-radius: 50%;
     }
+    .share-button {
+      margin-top: 10px;
+      padding: 5px 10px;
+      background-color: #00ffa6;
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+    .copied-message {
+      font-size: 0.9em;
+      color: #00ffa6;
+      margin-top: 5px;
+    }
   </style>
 </head>
 <body>
@@ -85,20 +101,28 @@
     <h2>🆕 Yangi qo‘shilgan GIFlar</h2>
     <div class="gif-grid">
       <div class="gif-box">
-        <img src="https://media4.giphy.com/media/KEVmPFbJk9HzkntYMm/giphy.gif" alt="GIF 1" onclick="copyToClipboard(this)">
+        <img src="https://media4.giphy.com/media/KEVmPFbJk9HzkntYMm/giphy.gif" onclick="copyGifLink(this)">
         <p>🇺🇿 Khusanov Bayroq bilan</p>
+        <button class="share-button" onclick="shareGif('https://media4.giphy.com/media/KEVmPFbJk9HzkntYMm/giphy.gif')">Ulashish</button>
+        <div class="copied-message" style="display:none;">Link nusxalandi! 📋</div>
       </div>
       <div class="gif-box">
-        <img src="https://media2.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif" alt="GIF 2" onclick="copyToClipboard(this)">
+        <img src="https://media2.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif" onclick="copyGifLink(this)">
         <p>⚽️ Khusanov — vibe</p>
+        <button class="share-button" onclick="shareGif('https://media2.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif')">Ulashish</button>
+        <div class="copied-message" style="display:none;">Link nusxalandi! 📋</div>
       </div>
       <div class="gif-box">
-        <img src="https://media4.giphy.com/media/0ZyUpEOpIaolqu76Wm/giphy.gif" alt="GIF 3" onclick="copyToClipboard(this)">
+        <img src="https://media4.giphy.com/media/0ZyUpEOpIaolqu76Wm/giphy.gif" onclick="copyGifLink(this)">
         <p>🎯 QATAR 0 - 3 UZB</p>
+        <button class="share-button" onclick="shareGif('https://media4.giphy.com/media/0ZyUpEOpIaolqu76Wm/giphy.gif')">Ulashish</button>
+        <div class="copied-message" style="display:none;">Link nusxalandi! 📋</div>
       </div>
       <div class="gif-box">
-        <img src="https://media1.giphy.com/media/0SAzM5GSeHepczxorV/giphy.gif" alt="GIF 4" onclick="copyToClipboard(this)">
+        <img src="https://media1.giphy.com/media/0SAzM5GSeHepczxorV/giphy.gif" onclick="copyGifLink(this)">
         <p>Qooch Uzbeklar Kelyapti! 🤣</p>
+        <button class="share-button" onclick="shareGif('https://media1.giphy.com/media/0SAzM5GSeHepczxorV/giphy.gif')">Ulashish</button>
+        <div class="copied-message" style="display:none;">Link nusxalandi! 📋</div>
       </div>
     </div>
   </section>
@@ -108,24 +132,39 @@
     <h2>🔥 Ko‘p ishlatilgan GIFlar</h2>
     <div class="gif-grid">
       <div class="gif-box">
-        <img src="https://media.giphy.com/media/5gW80eiyBIckMhPOTI/giphy.gif" alt="GIF 5" onclick="copyToClipboard(this)">
+        <img src="https://media.giphy.com/media/5gW80eiyBIckMhPOTI/giphy.gif" onclick="copyGifLink(this)">
         <p>🇺🇿 UZBEKISTON TERMA JAMOASI</p>
+        <button class="share-button" onclick="shareGif('https://media.giphy.com/media/5gW80eiyBIckMhPOTI/giphy.gif')">Ulashish</button>
+        <div class="copied-message" style="display:none;">Link nusxalandi! 📋</div>
       </div>
       <div class="gif-box">
-        <img src="https://media.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif" alt="GIF 6" onclick="copyToClipboard(this)">
+        <img src="https://media.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif" onclick="copyGifLink(this)">
         <p>🇺🇿 KHUSANOV ABDUKODIR</p>
+        <button class="share-button" onclick="shareGif('https://media.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif')">Ulashish</button>
+        <div class="copied-message" style="display:none;">Link nusxalandi! 📋</div>
       </div>
       <div class="gif-box">
-        <img src="https://media.giphy.com/media/uhdJNJGzNPhiRCBT3M/giphy.gif" alt="GIF 7" onclick="copyToClipboard(this)">
+        <img src="https://media.giphy.com/media/uhdJNJGzNPhiRCBT3M/giphy.gif" onclick="copyGifLink(this)">
         <p>😎 ABBOS FAYZULLAYEV</p>
+        <button class="share-button" onclick="shareGif('https://media.giphy.com/media/uhdJNJGzNPhiRCBT3M/giphy.gif')">Ulashish</button>
+        <div class="copied-message" style="display:none;">Link nusxalandi! 📋</div>
       </div>
     </div>
   </section>
 
+  <!-- 📞 Contact Info -->
+  <section>
+    <h2>📞 Aloqa</h2>
+    <p>Telefon: <a href="tel:+16465100440">+1 (646) 510-0440</a></p>
+    <p>Email: <a href="mailto:help@shers.my">help@shers.my</a></p>
+  </section>
+
+  <!-- 🔗 GIPHY Link -->
   <footer>
     🔗 Yana ko‘proq ko‘rish uchun: <a href="https://giphy.com/shersmy" target="_blank">GIPHY profilimga o'ting</a>
   </footer>
 
+  <!-- 🌐 Social Links -->
   <div style="margin-top: 50px;">
     <h2>Mening sahifalarim</h2>
     <div class="social-icons">
@@ -144,34 +183,25 @@
     </div>
   </div>
 
-  <!-- 📬 Contact Info -->
-  <section style="margin-top: 60px;">
-    <h2>📬 Bog‘lanish</h2>
-    <p style="color: #cccccc;">Savollaringiz bormi yoki hamkorlik istaysizmi? Quyidagi ma’lumotlar orqali men bilan bog‘lanishingiz mumkin:</p>
-    <div style="margin-top: 20px; font-size: 1.1em; line-height: 1.8;">
-      <p>📧 Email: <a href="mailto:help@shers.my" style="color: #00ffa6;">help@shers.my</a></p>
-      <p>📱 Telefon: <a href="tel:+16465100440" style="color: #00ffa6;">+1 (646) 510‑0440</a></p>
-      <p>💬 Telegram: <a href="https://t.me/v0440" target="_blank" style="color: #00ffa6;">@v0440</a></p>
-    </div>
-  </section>
-
-  <div id="copy-message" style="display:none; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-  background-color: #00ffa6; color: #000; padding: 10px 20px; border-radius: 8px; font-weight: bold; z-index: 1000;">
-    Link nusxalandi! 📋
-  </div>
-
   <script>
-    function copyToClipboard(imgElement) {
-      const link = imgElement.src;
-      navigator.clipboard.writeText(link).then(() => {
-        const msg = document.getElementById("copy-message");
-        msg.style.display = "block";
-        setTimeout(() => {
-          msg.style.display = "none";
-        }, 2000);
-      }).catch(err => {
-        alert("Nusxalab bo‘lmadi: " + err);
-      });
+    function copyGifLink(img) {
+      const url = img.src;
+      navigator.clipboard.writeText(url);
+      const message = img.nextElementSibling.nextElementSibling;
+      message.style.display = 'block';
+      setTimeout(() => { message.style.display = 'none'; }, 2000);
+    }
+
+    function shareGif(url) {
+      if (navigator.share) {
+        navigator.share({
+          title: 'GIFni ko‘ring!',
+          text: 'Mana bu zo‘r GIFni ko‘ring 👇',
+          url: url
+        });
+      } else {
+        alert("Bu funksiyani brauzeringiz qo'llab-quvvatlamaydi. Linkni nusxalab qo‘lda ulashing.");
+      }
     }
   </script>
 </body>
