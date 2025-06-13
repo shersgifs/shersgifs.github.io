@@ -22,24 +22,31 @@
       font-size: 2.2em;
       margin-bottom: 10px;
     }
+    h2 {
+      color: #00ffa6;
+      margin-top: 50px;
+    }
     p {
       font-size: 1.1em;
       color: #cccccc;
       margin-bottom: 20px;
     }
+    .gif-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      justify-items: center;
+      margin-top: 30px;
+    }
     .gif-box {
-      margin-bottom: 40px;
       background-color: #1a1a1a;
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 0 12px #00ffa633;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
     }
     img {
       width: 100%;
-      max-width: 100%;
+      max-width: 250px;
       border-radius: 12px;
       margin-bottom: 15px;
       box-shadow: 0 0 10px #00ffa6;
@@ -54,77 +61,89 @@
       font-size: 14px;
       color: #888;
     }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+    .social-icons img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
   </style>
 </head>
 <body>
   <h1>🎉 Sher's GIFs Portfolio</h1>
   <p>Assalomu alaykum! Bu sahifada mening eng mashhur va kulgili GIFlarim to‘plangan. O‘zbekiston futbol terma jamoasi, vibe momentlar va kulgili so‘zlar — hammasi shu yerda!</p>
 
-<!-- 🆕 Yangi GIFlar bo‘limi -->
-<section id="new-gifs">
-  <h2>🆕 Yangi qo‘shilgan GIFlar</h2>
+  <!-- 🆕 Yangi GIFlar -->
+  <section id="new-gifs">
+    <h2>🆕 Yangi qo‘shilgan GIFlar</h2>
+    <div class="gif-grid">
+      <div class="gif-box">
+        <img src="https://media4.giphy.com/media/KEVmPFbJk9HzkntYMm/giphy.gif" alt="GIF 1">
+        <p>🇺🇿 Khusanov Bayroq bilan</p>
+      </div>
+      <div class="gif-box">
+        <img src="https://media2.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif" alt="GIF 2">
+        <p>⚽️ Khusanov — vibe</p>
+      </div>
+      <div class="gif-box">
+        <img src="https://media4.giphy.com/media/0ZyUpEOpIaolqu76Wm/giphy.gif" alt="GIF 3">
+        <p>🎯 QATAR 0 - 3 UZB</p>
+      </div>
+      <div class="gif-box">
+        <img src="https://media1.giphy.com/media/0SAzM5GSeHepczxorV/giphy.gif" alt="GIF 4">
+        <p>Qooch Uzbeklar Kelyapti! 🤣</p>
+      </div>
+    </div>
+  </section>
 
-  <div class="gif-box">
-    <img src="https://media4.giphy.com/media/KEVmPFbJk9HzkntYMm/giphy.gif" alt="GIF 1">
-    <p>🇺🇿 Khusanov Bayroq bilan </p>
-  </div>
+  <!-- 🔥 Ko‘p ishlatilgan GIFlar -->
+  <section id="popular-gifs">
+    <h2>🔥 Ko‘p ishlatilgan GIFlar</h2>
+    <div class="gif-grid">
+      <div class="gif-box">
+        <img src="https://media.giphy.com/media/5gW80eiyBIckMhPOTI/giphy.gif" alt="GIF 5">
+        <p>🇺🇿 UZBEKISTON TERMA JAMOASI</p>
+      </div>
+      <div class="gif-box">
+        <img src="https://media.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif" alt="GIF 6">
+        <p>🇺🇿 KHUSANOV ABDUKODIR</p>
+      </div>
+      <div class="gif-box">
+        <img src="https://media.giphy.com/media/uhdJNJGzNPhiRCBT3M/giphy.gif" alt="GIF 7">
+        <p>😎 ABBOS FAYZULLAYEV</p>
+      </div>
+    </div>
+  </section>
 
-  <div class="gif-box">
-    <img src="https://media2.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif" alt="GIF 2">
-    <p>⚽️ Khusanov — vibe </p>
-  </div>
-
-  <div class="gif-box">
-    <img src="https://media4.giphy.com/media/0ZyUpEOpIaolqu76Wm/giphy.gif" alt="GIF 3">
-    <p>🎯 QATAR 0 - 3 UZB </p>
-  </div>
-
-  <div class="gif-box">
-    <img src="https://media1.giphy.com/media/0SAzM5GSeHepczxorV/giphy.gif" alt="GIF 4">
-    <p>Qooch Uzbeklar Kelyapti! 🤣</p>
-  </div>
-</section>
-
-  
-  <div class="gif-box">
-    <img src="https://media.giphy.com/media/5gW80eiyBIckMhPOTI/giphy.gif" alt="GIF 1">
-    <p>🇺🇿 UZBEKISTON TERMA JAMOASI</p>
-  </div>
-
-  <div class="gif-box">
-    <img src="https://media.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif" alt="GIF 2">
-    <p>🇺🇿 KHUSANOV ABDUKODIR</p>
-  </div>
-
-  <div class="gif-box">
-    <img src="https://media.giphy.com/media/uhdJNJGzNPhiRCBT3M/giphy.gif" alt="GIF 3">
-    <p>😎 ABBOS FAYZULLAYEV</p>
-  </div>
-
+  <!-- 🔗 GIPHY Link -->
   <footer>
     🔗 Yana ko‘proq ko‘rish uchun: <a href="https://giphy.com/shersmy" target="_blank">GIPHY profilimga o'ting</a>
   </footer>
+
+  <!-- 🌐 Social Links -->
   <div style="margin-top: 50px;">
-  <h2>Mening sahifalarim</h2>
-  <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 15px;">
-</a>
-    </a>
-    <a href="https://www.youtube.com/@Shers.stream" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube" style="width: 30px; height: 30px; filter: drop-shadow(0 0 2px #ff0000);">
-    </a>
-    <a href="https://www.tiktok.com/@shers.stream" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok" style="width: 30px; height: 30px; filter: drop-shadow(0 0 2px #000000aa);">
-    </a>
-    <a href="https://www.instagram.com/im.sheralii/" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram" style="width: 30px; height: 30px; filter: drop-shadow(0 0 2px #ff00aa);">
-    </a>
-    <a href="https://t.me/v0440" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram" style="width: 30px; height: 30px; filter: drop-shadow(0 0 2px #229ED9);">
-    </a>
+    <h2>Mening sahifalarim</h2>
+    <div class="social-icons">
+      <a href="https://www.youtube.com/@Shers.stream" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube" style="filter: drop-shadow(0 0 2px #ff0000);">
+      </a>
+      <a href="https://www.tiktok.com/@shers.stream" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok" style="filter: drop-shadow(0 0 2px #000000aa);">
+      </a>
+      <a href="https://www.instagram.com/im.sheralii/" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram" style="filter: drop-shadow(0 0 2px #ff00aa);">
+      </a>
+      <a href="https://t.me/v0440" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram" style="filter: drop-shadow(0 0 2px #229ED9);">
+      </a>
+    </div>
   </div>
-</div>
-</div>
-</div>
 
 </body>
 </html>
