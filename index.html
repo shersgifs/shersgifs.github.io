@@ -140,6 +140,24 @@
     </div>
   </div>
 
+  <!-- Firebase SDK'lar -->
+  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-database-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA_geIrm6qAJP8KOZ96OFYK2MOqfqZu8Nw",
+      authDomain: "shers-gifs.firebaseapp.com",
+      databaseURL: "https://shers-gifs-default-rtdb.firebaseio.com",
+      projectId: "shers-gifs",
+      storageBucket: "shers-gifs.firebasestorage.app",
+      messagingSenderId: "584232581574",
+      appId: "1:584232581574:web:1fa299b284b61072d21ac7"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+  </script>
+
   <script>
     const gifs = [
       { url: "https://media4.giphy.com/media/KEVmPFbJk9HzkntYMm/giphy.gif", title: "🇺🇿 Khusanov Bayroq bilan" },
@@ -152,30 +170,11 @@
     ];
 
     const container = document.querySelector("#popular-gifs .gif-grid");
-    const likedGifs = JSON.parse(localStorage.getItem('likedGifs') || '{}');
-    const likeCounts = JSON.parse(localStorage.getItem('likeCounts') || '{}');
 
     gifs.forEach(gif => {
       const id = btoa(gif.url).replace(/=/g, '');
-      if (!likeCounts[id]) likeCounts[id] = 0;
-    });
-
-    localStorage.setItem('likeCounts', JSON.stringify(likeCounts));
-
-    gifs.sort((a, b) => {
-      const aId = btoa(a.url).replace(/=/g, '');
-      const bId = btoa(b.url).replace(/=/g, '');
-      return (likeCounts[bId] || 0) - (likeCounts[aId] || 0);
-    });
-
-    gifs.forEach(gif => container.appendChild(createGifBox(gif)));
-
-    function createGifBox(gif) {
       const box = document.createElement("div");
       box.className = "gif-box";
-      const id = btoa(gif.url).replace(/=/g, '');
-      const count = likeCounts[id] || 0;
-      const userLiked = likedGifs[id];
       box.innerHTML = `
         <img src="${gif.url}" onclick="copyGifLink(this)">
         <p>${gif.title}</p>
@@ -186,15 +185,21 @@
           <button class="icon-button" onclick="copyGifLink(this.closest('.gif-box').querySelector('img'))" title="Nusxalash">
             <svg fill="#00ffa6" viewBox="0 0 24 24"><path d="M16 1H4a2 2 0 00-2 2v14h2V3h12V1zm3 4H8a2 2 0 00-2 2v16h14a2 2 0 002-2V7a2 2 0 00-2-2zm0 18H8V7h11v16z"/></svg>
           </button>
-          <button class="icon-button" onclick="likeGif('${id}', this)" title="Like bosish">
+          <button class="icon-button" onclick="likeGif('${id}')" title="Like bosish">
             <svg fill="#ff4d6d" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5A5.5 5.5 0 017.5 3c1.74 0 3.41.81 4.5 2.09A6.507 6.507 0 0116.5 3 5.5 5.5 0 0122 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
           </button>
         </div>
-        <div class="like-counter" id="${id}">${count} ❤️</div>
+        <div class="like-counter" id="like-${id}">0 ❤️</div>
         <div class="copied-message" style="display:none;">Link nusxalandi! 📋</div>
       `;
-      return box;
-    }
+      container.appendChild(box);
+
+      // Real-time like counter
+      const likeRef = db.ref(`likes/${id}`);
+      likeRef.on("value", (snap) => {
+        document.getElementById(`like-${id}`).textContent = (snap.val() || 0) + ' ❤️';
+      });
+    });
 
     function copyGifLink(img) {
       const url = img.src;
@@ -208,48 +213,14 @@
       if (navigator.share) {
         navigator.share({ title: 'GIFni ko‘ring!', text: 'Mana bu zo‘r GIFni ko‘ring 👇', url });
       } else {
-        alert("Bu funksiyani brauzeringiz qo'llab-quvvatlamaydi. Linkni nusxalab qo‘lda ulashing.");
+        alert("Brauzer bu funksiyani qo‘llab-quvvatlamaydi. Linkni nusxa qilib ulashing.");
       }
     }
 
-    function likeGif(id, btn) {
-      const likeCounts = JSON.parse(localStorage.getItem('likeCounts') || '{}');
-      const likedGifs = JSON.parse(localStorage.getItem('likedGifs') || '{}');
-
-      if (likedGifs[id]) {
-        likeCounts[id] = Math.max((likeCounts[id] || 1) - 1, 0);
-        delete likedGifs[id];
-      } else {
-        likeCounts[id] = (likeCounts[id] || 0) + 1;
-        likedGifs[id] = true;
-      }
-
-      localStorage.setItem('likeCounts', JSON.stringify(likeCounts));
-      localStorage.setItem('likedGifs', JSON.stringify(likedGifs));
-
-      document.getElementById(id).textContent = `${likeCounts[id]} ❤️`;
+    function likeGif(id) {
+      const ref = db.ref(`likes/${id}`);
+      ref.transaction(val => (val || 0) + 1);
     }
   </script>
-  <!-- Firebase SDK'lar -->
-<script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-database-compat.js"></script>
-
-<script>
-  // Firebase konfiguratsiyasi
-  const firebaseConfig = {
-    apiKey: "AIzaSyA_geIrm6qAJP8KOZ96OFYK2MOqfqZu8Nw",
-    authDomain: "shers-gifs.firebaseapp.com",
-    databaseURL: "https://shers-gifs-default-rtdb.firebaseio.com",
-    projectId: "shers-gifs",
-    storageBucket: "shers-gifs.firebasestorage.app",
-    messagingSenderId: "584232581574",
-    appId: "1:584232581574:web:1fa299b284b61072d21ac7"
-  };
-
-  // Firebase ishga tushirish
-  firebase.initializeApp(firebaseConfig);
-  const database = firebase.database();
-</script>
-
 </body>
 </html>
