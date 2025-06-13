@@ -230,5 +230,26 @@
       document.getElementById(id).textContent = `${likeCounts[id]} ❤️`;
     }
   </script>
+  <!-- Firebase SDK'lar -->
+<script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-database-compat.js"></script>
+
+<script>
+  // Firebase konfiguratsiyasi
+  const firebaseConfig = {
+    apiKey: "AIzaSyA_geIrm6qAJP8KOZ96OFYK2MOqfqZu8Nw",
+    authDomain: "shers-gifs.firebaseapp.com",
+    databaseURL: "https://shers-gifs-default-rtdb.firebaseio.com",
+    projectId: "shers-gifs",
+    storageBucket: "shers-gifs.firebasestorage.app",
+    messagingSenderId: "584232581574",
+    appId: "1:584232581574:web:1fa299b284b61072d21ac7"
+  };
+
+  // Firebase ishga tushirish
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+</script>
+
 </body>
 </html>
