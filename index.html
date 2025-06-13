@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sher's GIFs – Kulguli GIF Portfolio</title>
+  <title>Sher's GIFs – Eng Yangi Uzbek Giflar</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <style>
     * {
@@ -44,6 +44,7 @@
       border-radius: 12px;
       box-shadow: 0 0 12px #00ffa633;
       max-width: 300px;
+      position: relative;
     }
     img {
       width: 100%;
@@ -75,15 +76,24 @@
       height: 30px;
       border-radius: 50%;
     }
-    .share-button {
-      margin-top: 10px;
-      padding: 5px 10px;
-      background-color: #00ffa6;
-      color: #000;
+    .icon-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+    }
+    .icon-button {
+      background: none;
       border: none;
-      border-radius: 6px;
       cursor: pointer;
-      font-size: 0.9em;
+      padding: 0;
+    }
+    .icon-button img {
+      width: 20px;
+      height: 20px;
+      filter: brightness(0) saturate(100%) invert(71%) sepia(19%) saturate(3324%) hue-rotate(107deg) brightness(104%) contrast(103%);
     }
     .copied-message {
       font-size: 0.9em;
@@ -100,30 +110,7 @@
   <section id="new-gifs">
     <h2>🆕 Yangi qo‘shilgan GIFlar</h2>
     <div class="gif-grid">
-      <div class="gif-box">
-        <img src="https://media4.giphy.com/media/KEVmPFbJk9HzkntYMm/giphy.gif" onclick="copyGifLink(this)">
-        <p>🇺🇿 Khusanov Bayroq bilan</p>
-        <button class="share-button" onclick="shareGif('https://media4.giphy.com/media/KEVmPFbJk9HzkntYMm/giphy.gif')">Ulashish</button>
-        <div class="copied-message" style="display:none;">Link nusxalandi! 📋</div>
-      </div>
-      <div class="gif-box">
-        <img src="https://media2.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif" onclick="copyGifLink(this)">
-        <p>⚽️ Khusanov — vibe</p>
-        <button class="share-button" onclick="shareGif('https://media2.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif')">Ulashish</button>
-        <div class="copied-message" style="display:none;">Link nusxalandi! 📋</div>
-      </div>
-      <div class="gif-box">
-        <img src="https://media4.giphy.com/media/0ZyUpEOpIaolqu76Wm/giphy.gif" onclick="copyGifLink(this)">
-        <p>🎯 QATAR 0 - 3 UZB</p>
-        <button class="share-button" onclick="shareGif('https://media4.giphy.com/media/0ZyUpEOpIaolqu76Wm/giphy.gif')">Ulashish</button>
-        <div class="copied-message" style="display:none;">Link nusxalandi! 📋</div>
-      </div>
-      <div class="gif-box">
-        <img src="https://media1.giphy.com/media/0SAzM5GSeHepczxorV/giphy.gif" onclick="copyGifLink(this)">
-        <p>Qooch Uzbeklar Kelyapti! 🤣</p>
-        <button class="share-button" onclick="shareGif('https://media1.giphy.com/media/0SAzM5GSeHepczxorV/giphy.gif')">Ulashish</button>
-        <div class="copied-message" style="display:none;">Link nusxalandi! 📋</div>
-      </div>
+      <!-- GIF Boxlar bu yerda avtomatik hosil bo'ladi -->
     </div>
   </section>
 
@@ -131,24 +118,7 @@
   <section id="popular-gifs">
     <h2>🔥 Ko‘p ishlatilgan GIFlar</h2>
     <div class="gif-grid">
-      <div class="gif-box">
-        <img src="https://media.giphy.com/media/5gW80eiyBIckMhPOTI/giphy.gif" onclick="copyGifLink(this)">
-        <p>🇺🇿 UZBEKISTON TERMA JAMOASI</p>
-        <button class="share-button" onclick="shareGif('https://media.giphy.com/media/5gW80eiyBIckMhPOTI/giphy.gif')">Ulashish</button>
-        <div class="copied-message" style="display:none;">Link nusxalandi! 📋</div>
-      </div>
-      <div class="gif-box">
-        <img src="https://media.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif" onclick="copyGifLink(this)">
-        <p>🇺🇿 KHUSANOV ABDUKODIR</p>
-        <button class="share-button" onclick="shareGif('https://media.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif')">Ulashish</button>
-        <div class="copied-message" style="display:none;">Link nusxalandi! 📋</div>
-      </div>
-      <div class="gif-box">
-        <img src="https://media.giphy.com/media/uhdJNJGzNPhiRCBT3M/giphy.gif" onclick="copyGifLink(this)">
-        <p>😎 ABBOS FAYZULLAYEV</p>
-        <button class="share-button" onclick="shareGif('https://media.giphy.com/media/uhdJNJGzNPhiRCBT3M/giphy.gif')">Ulashish</button>
-        <div class="copied-message" style="display:none;">Link nusxalandi! 📋</div>
-      </div>
+      <!-- GIF Boxlar bu yerda avtomatik hosil bo'ladi -->
     </div>
   </section>
 
@@ -185,10 +155,72 @@
   </div>
 
   <script>
+    const gifs = [
+      {
+        url: "https://media4.giphy.com/media/KEVmPFbJk9HzkntYMm/giphy.gif",
+        title: "🇺🇿 Khusanov Bayroq bilan"
+      },
+      {
+        url: "https://media2.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif",
+        title: "⚽️ Khusanov — vibe"
+      },
+      {
+        url: "https://media4.giphy.com/media/0ZyUpEOpIaolqu76Wm/giphy.gif",
+        title: "🎯 QATAR 0 - 3 UZB"
+      },
+      {
+        url: "https://media1.giphy.com/media/0SAzM5GSeHepczxorV/giphy.gif",
+        title: "Qooch Uzbeklar Kelyapti! 🤣"
+      },
+      {
+        url: "https://media.giphy.com/media/5gW80eiyBIckMhPOTI/giphy.gif",
+        title: "🇺🇿 UZBEKISTON TERMA JAMOASI"
+      },
+      {
+        url: "https://media.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif",
+        title: "🇺🇿 KHUSANOV ABDUKODIR"
+      },
+      {
+        url: "https://media.giphy.com/media/uhdJNJGzNPhiRCBT3M/giphy.gif",
+        title: "😎 ABBOS FAYZULLAYEV"
+      }
+    ];
+
+    const newGifsSection = document.querySelector("#new-gifs .gif-grid");
+    const popularGifsSection = document.querySelector("#popular-gifs .gif-grid");
+
+    gifs.slice(0, 4).forEach(gif => {
+      const box = createGifBox(gif);
+      newGifsSection.appendChild(box);
+    });
+    gifs.slice(4).forEach(gif => {
+      const box = createGifBox(gif);
+      popularGifsSection.appendChild(box);
+    });
+
+    function createGifBox(gif) {
+      const box = document.createElement("div");
+      box.className = "gif-box";
+      box.innerHTML = `
+        <img src="${gif.url}" onclick="copyGifLink(this)">
+        <p>${gif.title}</p>
+        <div class="icon-buttons">
+          <button class="icon-button" onclick="shareGif('${gif.url}')">
+            <img src="https://cdn-icons-png.flaticon.com/512/786/786205.png" alt="Share">
+          </button>
+          <button class="icon-button" onclick="copyGifLink(this.closest('.gif-box').querySelector('img'))">
+            <img src="https://cdn-icons-png.flaticon.com/512/1827/1827933.png" alt="Copy">
+          </button>
+        </div>
+        <div class="copied-message" style="display:none;">Link nusxalandi! 📋</div>
+      `;
+      return box;
+    }
+
     function copyGifLink(img) {
       const url = img.src;
       navigator.clipboard.writeText(url);
-      const message = img.nextElementSibling.nextElementSibling;
+      const message = img.closest('.gif-box').querySelector('.copied-message');
       message.style.display = 'block';
       setTimeout(() => { message.style.display = 'none'; }, 2000);
     }
