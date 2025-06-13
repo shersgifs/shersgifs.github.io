@@ -42,7 +42,6 @@
       background-color: #1a1a1a;
       padding: 20px;
       border-radius: 12px;
-      box-shadow: 0 0 12px #00ffa633;
       max-width: 300px;
       position: relative;
     }
@@ -51,7 +50,6 @@
       max-width: 250px;
       border-radius: 12px;
       margin-bottom: 15px;
-      box-shadow: 0 0 10px #00ffa6;
       cursor: pointer;
     }
     a {
@@ -81,8 +79,8 @@
       justify-content: flex-end;
       gap: 10px;
       position: absolute;
-      bottom: 15px;
-      right: 15px;
+      bottom: 5px;
+      right: 5px;
     }
     .icon-button {
       background: none;
@@ -93,12 +91,15 @@
     .icon-button img {
       width: 20px;
       height: 20px;
-      filter: brightness(0) saturate(100%) invert(71%) sepia(19%) saturate(3324%) hue-rotate(107deg) brightness(104%) contrast(103%);
     }
     .copied-message {
       font-size: 0.9em;
       color: #00ffa6;
       margin-top: 5px;
+    }
+    .like-counter {
+      font-size: 0.9em;
+      color: #aaa;
     }
   </style>
 </head>
@@ -106,36 +107,27 @@
   <h1>🎉 Sher's GIFs Portfolio</h1>
   <p>Assalomu alaykum! Bu sahifada mening eng mashhur va kulgili GIFlarim to‘plangan. O‘zbekiston futbol terma jamoasi, vibe momentlar va kulgili so‘zlar — hammasi shu yerda!</p>
 
-  <!-- 🆕 Yangi GIFlar -->
   <section id="new-gifs">
     <h2>🆕 Yangi qo‘shilgan GIFlar</h2>
-    <div class="gif-grid">
-      <!-- GIF Boxlar bu yerda avtomatik hosil bo'ladi -->
-    </div>
+    <div class="gif-grid"></div>
   </section>
 
-  <!-- 🔥 Ko‘p ishlatilgan GIFlar -->
   <section id="popular-gifs">
     <h2>🔥 Ko‘p ishlatilgan GIFlar</h2>
-    <div class="gif-grid">
-      <!-- GIF Boxlar bu yerda avtomatik hosil bo'ladi -->
-    </div>
+    <div class="gif-grid"></div>
   </section>
 
-  <!-- 📞 Contact Info -->
   <section>
-   <h2>🌐 Bog‘lanish</h2>
-    <p>📞Telefon: <a href="tel:+16465100440">+1 (646) 510-0440</a></p>
-    <p>📱Telegram: <a href="https://t.me/v0440" target="_blank">Sherali</a></p>
-    <p>📧Email: <a href="mailto:help@shers.my">help@shers.my</a></p>
+    <h2>📞 Bog‘lanish</h2>
+    <p>Telefon: <a href="tel:+16465100440">+1 (646) 510-0440</a></p>
+    <p>Telegram: <a href="https://t.me/v0440" target="_blank">Sherali</a></p>
+    <p>Email: <a href="mailto:help@shers.my">help@shers.my</a></p>
   </section>
 
-  <!-- 🔗 GIPHY Link -->
   <footer>
     🔗 Yana ko‘proq ko‘rish uchun: <a href="https://giphy.com/shersmy" target="_blank">GIPHY profilimga o'ting</a>
   </footer>
 
-  <!-- 🌐 Social Links -->
   <div style="margin-top: 50px;">
     <h2>Mening sahifalarim</h2>
     <div class="social-icons">
@@ -201,17 +193,23 @@
     function createGifBox(gif) {
       const box = document.createElement("div");
       box.className = "gif-box";
+      const likeId = `like-${btoa(gif.url).replace(/=/g, '')}`;
+      const likeCount = localStorage.getItem(likeId) || 0;
       box.innerHTML = `
         <img src="${gif.url}" onclick="copyGifLink(this)">
         <p>${gif.title}</p>
         <div class="icon-buttons">
           <button class="icon-button" onclick="shareGif('${gif.url}')">
-            <img src="https://cdn-icons-png.flaticon.com/512/786/786205.png" alt="Share">
+            <img src="https://www.svgrepo.com/show/312300/share.svg" alt="Share">
           </button>
           <button class="icon-button" onclick="copyGifLink(this.closest('.gif-box').querySelector('img'))">
-            <img src="https://cdn-icons-png.flaticon.com/512/1827/1827933.png" alt="Copy">
+            <img src="https://www.svgrepo.com/show/327408/copy.svg" alt="Copy">
+          </button>
+          <button class="icon-button" onclick="likeGif('${likeId}', this)">
+            <img src="https://www.svgrepo.com/show/10647/heart.svg" alt="Like">
           </button>
         </div>
+        <div class="like-counter" id="${likeId}">${likeCount} ❤️</div>
         <div class="copied-message" style="display:none;">Link nusxalandi! 📋</div>
       `;
       return box;
@@ -235,6 +233,13 @@
       } else {
         alert("Bu funksiyani brauzeringiz qo'llab-quvvatlamaydi. Linkni nusxalab qo‘lda ulashing.");
       }
+    }
+
+    function likeGif(id, btn) {
+      let count = parseInt(localStorage.getItem(id) || '0');
+      count++;
+      localStorage.setItem(id, count);
+      document.getElementById(id).textContent = `${count} ❤️`;
     }
   </script>
 </body>
