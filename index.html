@@ -107,7 +107,7 @@
   <p>Assalomu alaykum! Bu sahifada mening eng mashhur va kulgili GIFlarim to‘plangan. O‘zbekiston futbol terma jamoasi, vibe momentlar va kulgili so‘zlar — hammasi shu yerda!</p>
 
   <section id="popular-gifs">
-    <h2>🔥 Eng ko‘p yoqilgan GIFlar</h2>
+    <h2>🔥 Eng ko‘p ishlatilgan GIFlar</h2>
     <div class="gif-grid"></div>
   </section>
 
@@ -151,27 +151,31 @@
       { url: "https://media.giphy.com/media/uhdJNJGzNPhiRCBT3M/giphy.gif", title: "😎 ABBOS FAYZULLAYEV" }
     ];
 
+    const container = document.querySelector("#popular-gifs .gif-grid");
+    const likedGifs = JSON.parse(localStorage.getItem('likedGifs') || '{}');
+    const likeCounts = JSON.parse(localStorage.getItem('likeCounts') || '{}');
+
     gifs.forEach(gif => {
-      const id = `like-${btoa(gif.url).replace(/=/g, '')}`;
-      if (!localStorage.getItem(id)) {
-        localStorage.setItem(id, '0');
-      }
+      const id = btoa(gif.url).replace(/=/g, '');
+      if (!likeCounts[id]) likeCounts[id] = 0;
     });
+
+    localStorage.setItem('likeCounts', JSON.stringify(likeCounts));
 
     gifs.sort((a, b) => {
-      const aLikes = parseInt(localStorage.getItem(`like-${btoa(a.url).replace(/=/g, '')}`) || '0');
-      const bLikes = parseInt(localStorage.getItem(`like-${btoa(b.url).replace(/=/g, '')}`) || '0');
-      return bLikes - aLikes;
+      const aId = btoa(a.url).replace(/=/g, '');
+      const bId = btoa(b.url).replace(/=/g, '');
+      return (likeCounts[bId] || 0) - (likeCounts[aId] || 0);
     });
 
-    const container = document.querySelector("#popular-gifs .gif-grid");
     gifs.forEach(gif => container.appendChild(createGifBox(gif)));
 
     function createGifBox(gif) {
       const box = document.createElement("div");
       box.className = "gif-box";
-      const likeId = `like-${btoa(gif.url).replace(/=/g, '')}`;
-      const likeCount = localStorage.getItem(likeId) || 0;
+      const id = btoa(gif.url).replace(/=/g, '');
+      const count = likeCounts[id] || 0;
+      const userLiked = likedGifs[id];
       box.innerHTML = `
         <img src="${gif.url}" onclick="copyGifLink(this)">
         <p>${gif.title}</p>
@@ -182,11 +186,11 @@
           <button class="icon-button" onclick="copyGifLink(this.closest('.gif-box').querySelector('img'))" title="Nusxalash">
             <svg fill="#00ffa6" viewBox="0 0 24 24"><path d="M16 1H4a2 2 0 00-2 2v14h2V3h12V1zm3 4H8a2 2 0 00-2 2v16h14a2 2 0 002-2V7a2 2 0 00-2-2zm0 18H8V7h11v16z"/></svg>
           </button>
-          <button class="icon-button" onclick="likeGif('${likeId}', this)" title="Like bosish">
+          <button class="icon-button" onclick="likeGif('${id}', this)" title="Like bosish">
             <svg fill="#ff4d6d" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5A5.5 5.5 0 017.5 3c1.74 0 3.41.81 4.5 2.09A6.507 6.507 0 0116.5 3 5.5 5.5 0 0122 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
           </button>
         </div>
-        <div class="like-counter" id="${likeId}">${likeCount} ❤️</div>
+        <div class="like-counter" id="${id}">${count} ❤️</div>
         <div class="copied-message" style="display:none;">Link nusxalandi! 📋</div>
       `;
       return box;
@@ -209,10 +213,21 @@
     }
 
     function likeGif(id, btn) {
-      let count = parseInt(localStorage.getItem(id) || '0');
-      count++;
-      localStorage.setItem(id, count);
-      document.getElementById(id).textContent = `${count} ❤️`;
+      const likeCounts = JSON.parse(localStorage.getItem('likeCounts') || '{}');
+      const likedGifs = JSON.parse(localStorage.getItem('likedGifs') || '{}');
+
+      if (likedGifs[id]) {
+        likeCounts[id] = Math.max((likeCounts[id] || 1) - 1, 0);
+        delete likedGifs[id];
+      } else {
+        likeCounts[id] = (likeCounts[id] || 0) + 1;
+        likedGifs[id] = true;
+      }
+
+      localStorage.setItem('likeCounts', JSON.stringify(likeCounts));
+      localStorage.setItem('likedGifs', JSON.stringify(likedGifs));
+
+      document.getElementById(id).textContent = `${likeCounts[id]} ❤️`;
     }
   </script>
 </body>
