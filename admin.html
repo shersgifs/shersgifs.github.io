@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel – Sher's GIFs</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0e0e0e;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-box {
+      background: #1a1a1a;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 255, 166, 0.3);
+      width: 100%;
+      max-width: 350px;
+    }
+    h2 {
+      text-align: center;
+      color: #00ffa6;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 6px;
+      background: #2a2a2a;
+      color: #fff;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #00ffa6;
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #00e6a0;
+    }
+    .error {
+      color: #ff4d4d;
+      font-size: 0.9em;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .welcome {
+      text-align: center;
+      font-size: 1.2em;
+      color: #00ffa6;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box" id="login-box">
+    <h2>Admin Panel</h2>
+    <input type="text" id="username" placeholder="Foydalanuvchi nomi">
+    <input type="password" id="password" placeholder="Parol">
+    <button onclick="login()">Kirish</button>
+    <div class="error" id="error-msg"></div>
+  </div>
+
+  <div class="welcome" id="welcome-msg" style="display: none;">
+    🎉 Xush kelibsiz, Sheralii!<br>Admin panelga muvaffaqiyatli kirdingiz.
+  </div>
+
+  <script>
+    const correctUsername = "Sheralii";
+    const correctPassword = "Sherali2208$";
+
+    function login() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const errorMsg = document.getElementById("error-msg");
+      const loginBox = document.getElementById("login-box");
+      const welcomeMsg = document.getElementById("welcome-msg");
+
+      if (username === correctUsername && password === correctPassword) {
+        loginBox.style.display = "none";
+        welcomeMsg.style.display = "block";
+      } else {
+        errorMsg.textContent = "Noto‘g‘ri foydalanuvchi nomi yoki parol!";
+      }
+    }
+  </script>
+</body>
+</html>
