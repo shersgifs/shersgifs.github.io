@@ -1,20 +1,59 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin Panel – Sher's GIFs</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #0e0e0e; color: #fff; text-align: center; padding: 40px; }
-    h1 { color: #00ffa6; }
-    .hidden { display: none; }
-    input, button { padding: 10px; margin: 8px 0; width: 90%; max-width: 300px; border-radius: 8px; border: none; }
-    input { background: #1a1a1a; color: #fff; }
-    button { background: #00ffa6; color: #000; font-weight: bold; cursor: pointer; }
-    .gif-box { background: #1a1a1a; padding: 15px; border-radius: 10px; margin-top: 20px; }
-    .gif-box img { max-width: 100%; border-radius: 10px; }
-    .actions button { margin: 5px; font-size: 14px; padding: 6px 12px; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #0e0e0e;
+      color: #fff;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #00ffa6;
+    }
+    input, button {
+      padding: 10px;
+      margin: 8px 0;
+      width: 90%;
+      max-width: 300px;
+      border-radius: 8px;
+      border: none;
+    }
+    input {
+      background: #1a1a1a;
+      color: #fff;
+    }
+    button {
+      background: #00ffa6;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .hidden {
+      display: none;
+    }
+    .gif-box {
+      background: #1a1a1a;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    .gif-box img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+    .actions button {
+      margin: 5px;
+      font-size: 14px;
+      padding: 6px 12px;
+    }
   </style>
+
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-auth-compat.js"></script>
@@ -29,30 +68,33 @@
       appId: "1:584232581574:web:1fa299b284b61072d21ac7"
     };
     firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
   </script>
 </head>
+
 <body>
   <h1>Admin Panel – Sher's GIFs</h1>
 
+  <!-- LOGIN SECTION -->
   <div id="login-section">
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Parol">
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Parol" />
     <button onclick="login()">Kirish</button>
-    <p id="error-msg" style="color:red"></p>
+    <p id="error-msg" style="color: red"></p>
   </div>
 
+  <!-- ADMIN PANEL -->
   <div id="admin-panel" class="hidden">
     <button onclick="logout()">Chiqish</button>
     <h2>GIF qo‘shish</h2>
-    <input type="text" id="gif-url" placeholder="GIF URL">
-    <input type="text" id="gif-title" placeholder="GIF nomi">
+    <input type="text" id="gif-url" placeholder="GIF URL (.gif bilan tugasin)" />
+    <input type="text" id="gif-title" placeholder="GIF nomi" />
     <button onclick="addGif()">Qo‘shish</button>
     <div id="gif-list"></div>
   </div>
 
+  <!-- JAVASCRIPT FUNCTIONALITY -->
   <script>
-    const db = firebase.database();
-
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         document.getElementById("login-section").classList.add("hidden");
@@ -76,13 +118,30 @@
     }
 
     function addGif() {
-      const url = document.getElementById("gif-url").value;
-      const title = document.getElementById("gif-title").value;
+      const url = document.getElementById("gif-url").value.trim();
+      const title = document.getElementById("gif-title").value.trim();
+
+      if (!url || !title) {
+        alert("Iltimos, URL va nomni kiriting!");
+        return;
+      }
+
+      if (!url.endsWith(".gif")) {
+        alert("Faqat .gif formatidagi URL kiriting!");
+        return;
+      }
+
       const id = btoa(url).replace(/=/g, "");
-      db.ref("gifs/" + id).set({ url, title });
-      document.getElementById("gif-url").value = "";
-      document.getElementById("gif-title").value = "";
-      loadGifList();
+      const gifRef = db.ref("gifs/" + id);
+
+      gifRef.set({ url, title })
+        .then(() => {
+          alert("✅ GIF qo‘shildi!");
+          document.getElementById("gif-url").value = "";
+          document.getElementById("gif-title").value = "";
+          loadGifList();
+        })
+        .catch(error => alert("❌ Xatolik: " + error.message));
     }
 
     function loadGifList() {
@@ -95,7 +154,7 @@
             const div = document.createElement("div");
             div.className = "gif-box";
             div.innerHTML = `
-              <img src="${gif.url}" alt="GIF">
+              <img src="${gif.url}" alt="GIF" />
               <p><strong>${gif.title}</strong></p>
               <div class="actions">
                 <button onclick="editGif('${key}', '${gif.url}', '${gif.title.replace(/'/g, "\\'")}')">✏️ Tahrirlash</button>
