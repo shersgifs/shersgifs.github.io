@@ -13,20 +13,21 @@
     button { background: #00ffa6; color: #000; font-weight: bold; cursor: pointer; }
     .gif-box { background: #1a1a1a; padding: 15px; border-radius: 10px; margin-top: 20px; }
     .gif-box img { max-width: 100%; border-radius: 10px; }
+    .actions button { margin: 5px; font-size: 14px; padding: 6px 12px; }
   </style>
   <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-auth-compat.js"></script>
   <script>
-   const firebaseConfig = {
-  apiKey: "AIzaSyA_geIrm6qAJP8KOZ96OFYK2MOqfqZu8Nw",
-  authDomain: "shers-gifs.firebaseapp.com",
-  databaseURL: "https://shers-gifs-default-rtdb.firebaseio.com",
-  projectId: "shers-gifs",
-  storageBucket: "shers-gifs.appspot.com",  // ← to‘g‘risi shu!
-  messagingSenderId: "584232581574",
-  appId: "1:584232581574:web:1fa299b284b61072d21ac7"
-};
+    const firebaseConfig = {
+      apiKey: "AIzaSyA_geIrm6qAJP8KOZ96OFYK2MOqfqZu8Nw",
+      authDomain: "shers-gifs.firebaseapp.com",
+      databaseURL: "https://shers-gifs-default-rtdb.firebaseio.com",
+      projectId: "shers-gifs",
+      storageBucket: "shers-gifs.appspot.com",
+      messagingSenderId: "584232581574",
+      appId: "1:584232581574:web:1fa299b284b61072d21ac7"
+    };
     firebase.initializeApp(firebaseConfig);
   </script>
 </head>
@@ -90,14 +91,36 @@
       db.ref("customGifs").once("value", snap => {
         const data = snap.val();
         if (data) {
-          Object.values(data).forEach(gif => {
+          Object.entries(data).forEach(([key, gif]) => {
             const div = document.createElement("div");
             div.className = "gif-box";
-            div.innerHTML = `<img src="${gif.url}"><p>${gif.title}</p>`;
+            div.innerHTML = `
+              <img src="${gif.url}" alt="GIF">
+              <p><strong>${gif.title}</strong></p>
+              <div class="actions">
+                <button onclick="editGif('${key}', '${gif.url}', '${gif.title.replace(/'/g, "\\'")}')">✏️ Tahrirlash</button>
+                <button onclick="deleteGif('${key}')">🗑️ O‘chirish</button>
+              </div>
+            `;
             list.appendChild(div);
           });
         }
       });
+    }
+
+    function editGif(key, url, oldTitle) {
+      const newTitle = prompt("Yangi nomni kiriting:", oldTitle);
+      if (newTitle && newTitle !== oldTitle) {
+        db.ref("customGifs/" + key).update({ title: newTitle });
+        loadGifList();
+      }
+    }
+
+    function deleteGif(key) {
+      if (confirm("Bu GIFni o‘chirishga ishonchingiz komilmi?")) {
+        db.ref("customGifs/" + key).remove();
+        loadGifList();
+      }
     }
   </script>
 </body>
