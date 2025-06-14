@@ -9,26 +9,26 @@
       font-family: 'Segoe UI', sans-serif;
       background-color: #0e0e0e;
       color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
+      padding: 20px;
     }
-    .login-box {
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .login-box, .admin-panel {
       background: #1a1a1a;
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0 0 15px rgba(0, 255, 166, 0.3);
-      width: 100%;
-      max-width: 350px;
+      margin-top: 50px;
     }
     h2 {
       text-align: center;
       color: #00ffa6;
       margin-bottom: 20px;
     }
-    input {
+    input, textarea, select {
       width: 100%;
       padding: 12px;
       margin-bottom: 15px;
@@ -56,24 +56,36 @@
       margin-top: 10px;
       text-align: center;
     }
-    .welcome {
-      text-align: center;
-      font-size: 1.2em;
-      color: #00ffa6;
+    .hidden {
+      display: none;
     }
   </style>
+  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-database-compat.js"></script>
 </head>
 <body>
-  <div class="login-box" id="login-box">
-    <h2>Admin Panel</h2>
-    <input type="text" id="username" placeholder="Foydalanuvchi nomi">
-    <input type="password" id="password" placeholder="Parol">
-    <button onclick="login()">Kirish</button>
-    <div class="error" id="error-msg"></div>
-  </div>
+  <div class="container">
+    <div class="login-box" id="login-box">
+      <h2>Admin Panel</h2>
+      <input type="text" id="username" placeholder="Foydalanuvchi nomi">
+      <input type="password" id="password" placeholder="Parol">
+      <button onclick="login()">Kirish</button>
+      <div class="error" id="error-msg"></div>
+    </div>
 
-  <div class="welcome" id="welcome-msg" style="display: none;">
-    🎉 Xush kelibsiz, Sheralii!<br>Admin panelga muvaffaqiyatli kirdingiz.
+    <div class="admin-panel hidden" id="admin-panel">
+      <h2>Saytni Boshqaruv Paneli</h2>
+      <form onsubmit="addGif(event)">
+        <label>GIF URL:</label>
+        <input type="url" id="gif-url" placeholder="https://..." required>
+
+        <label>GIF nomi (title):</label>
+        <input type="text" id="gif-title" placeholder="Masalan: 🇺🇿 Khusanov Bayroq bilan" required>
+
+        <button type="submit">GIF qo‘shish</button>
+        <div id="add-msg" style="text-align:center;color:#00ffa6;margin-top:10px;"></div>
+      </form>
+    </div>
   </div>
 
   <script>
@@ -84,14 +96,45 @@
       const username = document.getElementById("username").value;
       const password = document.getElementById("password").value;
       const errorMsg = document.getElementById("error-msg");
-      const loginBox = document.getElementById("login-box");
-      const welcomeMsg = document.getElementById("welcome-msg");
 
       if (username === correctUsername && password === correctPassword) {
-        loginBox.style.display = "none";
-        welcomeMsg.style.display = "block";
+        document.getElementById("login-box").classList.add("hidden");
+        document.getElementById("admin-panel").classList.remove("hidden");
       } else {
         errorMsg.textContent = "Noto‘g‘ri foydalanuvchi nomi yoki parol!";
+      }
+    }
+
+    // Firebase config (site bilan bir xil)
+    const firebaseConfig = {
+      apiKey: "AIzaSyA_geIrm6qAJP8KOZ96OFYK2MOqfqZu8Nw",
+      authDomain: "shers-gifs.firebaseapp.com",
+      databaseURL: "https://shers-gifs-default-rtdb.firebaseio.com",
+      projectId: "shers-gifs",
+      storageBucket: "shers-gifs.appspot.com",
+      messagingSenderId: "584232581574",
+      appId: "1:584232581574:web:1fa299b284b61072d21ac7"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    function addGif(event) {
+      event.preventDefault();
+      const url = document.getElementById("gif-url").value.trim();
+      const title = document.getElementById("gif-title").value.trim();
+      const msg = document.getElementById("add-msg");
+
+      if (url && title) {
+        const id = btoa(url).replace(/=/g, '');
+        db.ref('gifs/' + id).set({ url, title })
+          .then(() => {
+            msg.textContent = "✅ GIF muvaffaqiyatli qo‘shildi!";
+            document.getElementById("gif-url").value = "";
+            document.getElementById("gif-title").value = "";
+          })
+          .catch(error => {
+            msg.textContent = "❌ Xatolik yuz berdi: " + error.message;
+          });
       }
     }
   </script>
