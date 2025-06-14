@@ -1,153 +1,263 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sher's GIFs – Eng Yangi Uzbek Giflar</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <meta name="description" content="Sher's GIFs – O'zbekcha kulgili GIFlar, vibe va sport lahzalari to'plami. Telegram uchun GIFlar.">
-  <meta property="og:title" content="Sher's GIFs – Eng Yangi Uzbek Giflar">
-  <meta property="og:description" content="GIF portfoliom: vibe, futbol, kulgili lahzalar va boshqalar.">
-  <meta property="og:image" content="https://your-domain.com/your-social-image.jpg">
-  <meta name="keywords" content="GIF, Uzbek GIF, vibe GIF, Khusanov, Uzbekistan GIF, futbol, telegram gif">
-  <style>
-    * { box-sizing: border-box; }
-    body { font-family: 'Segoe UI', sans-serif; background:#0e0e0e; color:#fff; text-align:center; padding:20px; margin:0; }
-    h1,h2 { color:#00ffa6; }
-    h1 { font-size:2.2em; margin-bottom:10px; }
-    p { font-size:1.1em; color:#ccc; margin-bottom:20px; }
-    .gif-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:30px; justify-items:center; margin-top:30px; }
-    .gif-box { background:#1a1a1a; padding:20px; border-radius:12px; max-width:300px; position:relative; }
-    img { width:100%; max-width:250px; border-radius:12px; margin-bottom:15px; cursor:pointer; }
-    a { color:#00ffa6; text-decoration:none; font-weight:bold; }
-    .icon-buttons { display:flex; justify-content:center; gap:20px; margin-top:10px; }
-    .icon-button { background:none; border:none; cursor:pointer; padding:0; }
-    .icon-button img { width:22px; height:22px; filter: drop-shadow(0 0 2px #00ffa6); }
-    .copied-message { font-size:0.9em; color:#00ffa6; margin-top:5px; display:none; }
-    .like-counter { font-size:0.9em; color:#aaa; margin-top:5px; }
-    footer { margin-top:40px; font-size:14px; color:#888; }
-    .social-icons { display:flex; justify-content:center; gap:15px; flex-wrap:wrap; margin-top:15px; }
-    .social-icons img { width:30px; height:30px; border-radius:50%; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sher's GIFs – Eng Yangi Uzbek Giflar</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta name="description" content="Sher's GIFs – O'zbekcha kulgili GIFlar, vibe va sport lahzalari to'plami. Telegram uchun GIFlar.">
+    <meta property="og:title" content="Sher's GIFs – Eng Yangi Uzbek Giflar">
+    <meta property="og:description" content="GIF portfoliom: vibe, futbol, kulgili lahzalar va boshqalar.">
+    <meta property="og:image" content="https://your-domain.com/your-social-image.jpg">
+    <meta name="keywords" content="GIF, Uzbek GIF, vibe GIF, Khusanov, Uzbekistan GIF, futbol, telegram gif">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    .floating-button {
-      position:fixed;
-      right:15px;
-      bottom:20px;
-      background-color:#00ffa6;
-      color:#000;
-      padding:12px 20px;
-      border:none;
-      border-radius:30px;
-      font-weight:bold;
-      font-size:16px;
-      box-shadow:0 4px 12px rgba(0,255,166,0.5);
-      cursor:pointer;
-      z-index:999;
-      transition:background-color 0.3s;
-    }
-    .floating-button:hover {
-      background-color:#00e6a0;
-    }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #0e0e0e;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
 
-    .admin-link {
-      position:fixed;
-      top:10px;
-      right:10px;
-      background-color:#00ffa6;
-      color:#000;
-      padding:8px 14px;
-      border-radius:20px;
-      font-size:14px;
-      text-decoration:none;
-      font-weight:bold;
-      z-index:999;
-    }
+        h1,
+        h2 {
+            color: #00ffa6;
+        }
 
-    @media screen and (max-width: 600px) {
-      .floating-button {
-        right:10px;
-        bottom:10px;
-        padding:10px 16px;
-        font-size:14px;
-      }
-    }
-  </style>
+        h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .gif-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 30px;
+            justify-items: center;
+            margin-top: 30px;
+        }
+
+        .gif-box {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 300px;
+            position: relative;
+        }
+
+        img {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        a {
+            color: #00ffa6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .icon-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .icon-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .icon-button img {
+            width: 22px;
+            height: 22px;
+            filter: drop-shadow(0 0 2px #00ffa6);
+        }
+
+        .copied-message {
+            font-size: 0.9em;
+            color: #00ffa6;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .like-counter {
+            font-size: 0.9em;
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .social-icons img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .floating-button {
+            position: fixed;
+            right: 15px;
+            bottom: 20px;
+            background-color: #00ffa6;
+            color: #000;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(0, 255, 166, 0.5);
+            cursor: pointer;
+            z-index: 999;
+            transition: background-color 0.3s;
+        }
+
+        .floating-button:hover {
+            background-color: #00e6a0;
+        }
+
+        .admin-link {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #00ffa6;
+            color: #000;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: bold;
+            z-index: 999;
+        }
+
+        @media screen and (max-width: 600px) {
+            .floating-button {
+                right: 10px;
+                bottom: 10px;
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <a href="admin.html" class="admin-link" target="_blank">Admin Panel</a>
-  <h1>🎉 Sher's GIFs Portfolio</h1>
-  <p>Assalomu alaykum! Bu sahifada mening eng mashhur va kulgili GIFlarim to‘plangan. O‘zbekiston futbol terma jamoasi, vibe momentlar va kulgili so‘zlar — hammasi shu yerda!</p>
-
-  <section id="popular-gifs">
-    <h2>🔥 Eng ko‘p ishlatilgan GIFlar</h2>
-    <div class="gif-grid" id="gif-grid"></div>
-  </section>
-
-  <section>
-    <h2>🌐 Bog‘lanish</h2>
-    <p>📞Telefon: <a href="tel:+16465100440">+1 (646) 510​‑0440</a></p>
-    <p>📱Telegram: <a href="https://t.me/v0440" target="_blank">Sherali</a></p>
-    <p>📧Email: <a href="mailto:help@shers.my">help@shers.my</a></p>
-  </section>
-
-  <footer>🔗 Endi ko‘proq GIFlar: <a href="https://giphy.com/shersmy" target="_blank">GIPHY profilim</a></footer>
-  <a href="https://t.me/v0440" class="floating-button" target="_blank">Buyurtma berish</a>
-
-  <!-- Social Links -->
-  <div style="margin-top: 50px;">
-    <h2>Mening sahifalarim</h2>
-    <div class="social-icons">
-      <a href="https://www.youtube.com/@Shers.stream" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube"></a>
-      <a href="https://www.tiktok.com/@shers.stream" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
-      <a href="https://www.instagram.com/im.sheralii/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram"></a>
-      <a href="https://t.me/v0440" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram"></a>
+    <a href="admin.html" class="admin-link" target="_blank">Admin Panel</a>
+    <h1>🎉 Sher's GIFs Portfolio</h1>
+    <p>Assalomu alaykum! Bu sahifada mening eng mashhur va kulgili GIFlarim to‘plangan. O‘zbekiston futbol terma jamoasi, vibe momentlar va kulgili so‘zlar — hammasi shu yerda!</p>
+    <section id="popular-gifs">
+        <h2>🔥 Eng ko‘p ishlatilgan GIFlar</h2>
+        <div class="gif-grid" id="gif-grid"></div>
+    </section>
+    <section>
+        <h2>🌐 Bog‘lanish</h2>
+        <p>📞Telefon: <a href="tel:+16465100440">+1 (646) 510​‑0440</a></p>
+        <p>📱Telegram: <a href="https://t.me/v0440" target="_blank">Sherali</a></p>
+        <p>📧Email: <a href="mailto:help@shers.my">help@shers.my</a></p>
+    </section>
+    <footer>🔗 Endi ko‘proq GIFlar: <a href="https://giphy.com/shersmy" target="_blank">GIPHY profilim</a></footer>
+    <a href="https://t.me/v0440" class="floating-button" target="_blank">Buyurtma berish</a>
+    <div style="margin-top: 50px;">
+        <h2>Mening sahifalarim</h2>
+        <div class="social-icons">
+            <a href="https://www.youtube.com/@Shers.stream" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube"></a>
+            <a href="https://www.tiktok.com/@shers.stream" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
+            <a href="https://www.instagram.com/im.sheralii/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram"></a>
+            <a href="https://t.me/v0440" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram"></a>
+        </div>
     </div>
-  </div>
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-database-compat.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSy...", // API keyni ochiq holda qoldirmang
-      authDomain: "shers-gifs.firebaseapp.com",
-      databaseURL: "https://shers-gifs-default-rtdb.firebaseio.com",
-      projectId: "shers-gifs",
-      storageBucket: "shers-gifs.appspot.com",
-      messagingSenderId: "584232581574",
-      appId: "1:584232581574:web:1fa299b284b61072d21ac7"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-  </script>
-  <script>
-    const gifs = [
-      { url: "https://media4.giphy.com/media/KEVmPFbJk9HzkntYMm/giphy.gif", title: "🇺🇿 Khusanov Bayroq bilan" },
-      { url: "https://media2.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif", title: "⚽️ Khusanov — vibe" },
-      { url: "https://media4.giphy.com/media/0ZyUpEOpIaolqu76Wm/giphy.gif", title: "🎯 QATAR 0 – 3 UZB" },
-      { url: "https://media1.giphy.com/media/0SAzM5GSeHepczxorV/giphy.gif", title: "Qooch Uzbeklar Kelyapti! 🤣" },
-      { url: "https://media.giphy.com/media/5gW80eiyBIckMhPOTI/giphy.gif", title: "🇺🇿 UZBEKISTON TERMA JAMOASI" },
-      { url: "https://media.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif", title: "🇺🇿 KHUSANOV ABDUKODIR" },
-      { url: "https://media.giphy.com/media/uhdJNJGzNPhiRCBT3M/giphy.gif", title: "😎 ABBOS FAYZULLAYEV" }
-    ];
-    const grid = document.getElementById("gif-grid");
-    const likeCounts = {};
-    const gifIDs = gifs.map(g => btoa(g.url).replace(/=/g, ''));
-    const likeRef = db.ref("likes");
-    likeRef.once("value").then(snapshot => {
-      const data = snapshot.val() || {};
-      gifs.forEach(gif => {
-        const id = btoa(gif.url).replace(/=/g, '');
-        likeCounts[id] = data[id] || 0;
-      });
-      const sortedGifs = gifs.slice().sort((a, b) => {
-        return likeCounts[btoa(b.url).replace(/=/g, '')] - likeCounts[btoa(a.url).replace(/=/g, '')];
-      });
-      sortedGifs.forEach(gif => {
-        const id = btoa(gif.url).replace(/=/g, '');
-        const box = document.createElement("div");
-        box.className = "gif-box";
-        box.innerHTML = `
+    <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-database-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSy...",
+            authDomain: "shers-gifs.firebaseapp.com",
+            databaseURL: "https://shers-gifs-default-rtdb.firebaseio.com",
+            projectId: "shers-gifs",
+            storageBucket: "shers-gifs.appspot.com",
+            messagingSenderId: "584232581574",
+            appId: "1:584232581574:web:1fa299b284b61072d21ac7"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+    </script>
+    <script>
+        const gifs = [{
+                url: "https://media4.giphy.com/media/KEVmPFbJk9HzkntYMm/giphy.gif",
+                title: "🇺🇿 Khusanov Bayroq bilan"
+            },
+            {
+                url: "https://media2.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif",
+                title: "⚽️ Khusanov — vibe"
+            },
+            {
+                url: "https://media4.giphy.com/media/0ZyUpEOpIaolqu76Wm/giphy.gif",
+                title: "🎯 QATAR 0 – 3 UZB"
+            },
+            {
+                url: "https://media1.giphy.com/media/0SAzM5GSeHepczxorV/giphy.gif",
+                title: "Qooch Uzbeklar Kelyapti! 🤣"
+            },
+            {
+                url: "https://media.giphy.com/media/5gW80eiyBIckMhPOTI/giphy.gif",
+                title: "🇺🇿 UZBEKISTON TERMA JAMOASI"
+            },
+            {
+                url: "https://media.giphy.com/media/uEChy6t4jBRcg7Vqn6/giphy.gif",
+                title: "🇺🇿 KHUSANOV ABDUKODIR"
+            },
+            {
+                url: "https://media.giphy.com/media/uhdJNJGzNPhiRCBT3M/giphy.gif",
+                title: "😎 ABBOS FAYZULLAYEV"
+            }
+        ];
+        const grid = document.getElementById("gif-grid");
+        const likeCounts = {};
+        const gifIDs = gifs.map(g => btoa(g.url).replace(/=/g, ''));
+        const likeRef = db.ref("likes");
+        likeRef.once("value").then(snapshot => {
+            const data = snapshot.val() || {};
+            gifs.forEach(gif => {
+                const id = btoa(gif.url).replace(/=/g, '');
+                likeCounts[id] = data[id] || 0;
+            });
+            const sortedGifs = gifs.slice().sort((a, b) => {
+                return likeCounts[btoa(b.url).replace(/=/g, '')] - likeCounts[btoa(a.url).replace(/=/g, '')];
+            });
+            sortedGifs.forEach(gif => {
+                const id = btoa(gif.url).replace(/=/g, '');
+                const box = document.createElement("div");
+                box.className = "gif-box";
+                box.innerHTML = `
           <img src="${gif.url}" alt="${gif.title}" onclick="copyGifLink(this)">
           <p>${gif.title}</p>
           <div class="icon-buttons">
@@ -164,26 +274,88 @@
           <div class="like-counter" id="like-${id}">${likeCounts[id] || 0} ❤️</div>
           <div class="copied-message">Link nusxalandi! 📋</div>
         `;
-        grid.appendChild(box);
-        db.ref(`likes/${id}`).on("value", snap => {
-          document.getElementById(`like-${id}`).textContent = (snap.val() || 0) + ' ❤️';
+                grid.appendChild(box);
+                db.ref(`likes/${id}`).on("value", snap => {
+                    document.getElementById(`like-${id}`).textContent = (snap.val() || 0) + ' ❤️';
+                });
+            });
         });
-      });
-    });
-    function copyGifLink(img) {
-      navigator.clipboard.writeText(img.src);
-      const msg = img.closest('.gif-box').querySelector('.copied-message');
-      msg.style.display = 'block';
-      setTimeout(() => msg.style.display = 'none', 2000);
-    }
-    function shareGif(url) {
-      if (navigator.share) navigator.share({ title: 'Ajoyib GIF', url });
-      else alert("Brauzeringizda share funksiyasi yo‘q");
-    }
-    function likeGif(id) {
-      const ref = db.ref(`likes/${id}`);
-      ref.transaction(val => (val || 0) + 1);
-    }
-  </script>
+
+        function copyGifLink(img) {
+            navigator.clipboard.writeText(img.src);
+            const msg = img.closest('.gif-box').querySelector('.copied-message');
+            msg.style.display = 'block';
+            setTimeout(() => msg.style.display = 'none', 2000);
+        }
+
+        function shareGif(url) {
+            if (navigator.share) navigator.share({
+                title: 'Ajoyib GIF',
+                url
+            });
+            else alert("Brauzeringizda share funksiyasi yo‘q");
+        }
+
+        function likeGif(id) {
+            const ref = db.ref(`likes/${id}`);
+            ref.transaction(val => (val || 0) + 1);
+        }
+    </script>
+    <script>
+        const gifs = [];
+        const grid = document.getElementById("gif-grid");
+        const likeCounts = {};
+        db.ref("gifs").once("value").then(snapshot => {
+            const data = snapshot.val() || {};
+            const gifArray = Object.values(data).reverse();
+            gifArray.forEach(gif => {
+                const id = btoa(gif.url).replace(/=/g, '');
+                const box = document.createElement("div");
+                box.className = "gif-box";
+                box.innerHTML = `
+          <img src="${gif.url}" alt="GIF" onclick="copyGifLink(this)">
+          <p>${gif.title || ''}</p>
+          <div class="icon-buttons">
+            <button class="icon-button" onclick="shareGif('${gif.url}')" title="Ulashish">
+              <img src="https://img.icons8.com/material-outlined/24/00ffa6/left--v1.png" alt="share" />
+            </button>
+            <button class="icon-button" onclick="copyGifLink(this.closest('.gif-box').querySelector('img'))" title="Nusxalash">
+              <img src="https://img.icons8.com/material-outlined/24/00ffa6/copy.png" alt="copy" />
+            </button>
+            <button class="icon-button" onclick="likeGif('${id}')" title="Like bosish">
+              <img src="https://img.icons8.com/material-outlined/24/00ffa6/like--v1.png" alt="like" />
+            </button>
+          </div>
+          <div class="like-counter" id="like-${id}">0 ❤️</div>
+          <div class="copied-message">Link nusxalandi! 📋</div>
+        `;
+                grid.appendChild(box);
+                db.ref(`likes/${id}`).on("value", snap => {
+                    document.getElementById(`like-${id}`).textContent = (snap.val() || 0) + ' ❤️';
+                });
+            });
+        });
+
+        function copyGifLink(img) {
+            navigator.clipboard.writeText(img.src);
+            const msg = img.closest('.gif-box').querySelector('.copied-message');
+            msg.style.display = 'block';
+            setTimeout(() => msg.style.display = 'none', 2000);
+        }
+
+        function shareGif(url) {
+            if (navigator.share) navigator.share({
+                title: 'Ajoyib GIF',
+                url
+            });
+            else alert("Brauzeringizda share funksiyasi yo‘q");
+        }
+
+        function likeGif(id) {
+            const ref = db.ref(`likes/${id}`);
+            ref.transaction(val => (val || 0) + 1);
+        }
+    </script>
 </body>
+
 </html>
