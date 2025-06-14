@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sher's GIFs – Eng Yangi Uzbek Giflar</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta name="description" content="Sher's GIFs – O'zbekcha kulgili GIFlar, vibe va sport lahzalari to'plami. Telegram uchun GIFlar.">
+  <meta property="og:title" content="Sher's GIFs – Eng Yangi Uzbek Giflar">
+  <meta property="og:description" content="GIF portfoliom: vibe, futbol, kulgili lahzalar va boshqalar.">
+  <meta property="og:image" content="https://your-domain.com/your-social-image.jpg">
+  <meta name="keywords" content="GIF, Uzbek GIF, vibe GIF, Khusanov, Uzbekistan GIF, futbol, telegram gif">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <a href="admin.html" class="admin-link" target="_blank">Admin Panel</a>
+  <h1>🎉 Sher's GIFs Portfolio</h1>
+  <p>Assalomu alaykum! Bu sahifada mening eng mashhur va kulgili GIFlarim to‘plangan. O‘zbekiston futbol terma jamoasi, vibe momentlar va kulgili so‘zlar — hammasi shu yerda!</p>
+
+  <section id="popular-gifs">
+    <h2>🔥 Eng ko‘p ishlatilgan GIFlar</h2>
+    <div class="gif-grid" id="gif-grid"></div>
+  </section>
+
+  <section>
+    <h2>🌐 Aloqa</h2>
+    <p>📞 Telefon: <a href="tel:+16465100440">+1 (646) 510​‑0440</a></p>
+    <p>📱 Telegram: <a href="https://t.me/v0440" target="_blank">Sherali bilan bog‘lanish</a></p>
+    <p>📧 Email: <a href="mailto:help@shers.my">help@shers.my</a></p>
+  </section>
+
+  <footer>🔗 Yana ko‘proq GIFlar: <a href="https://giphy.com/shersmy" target="_blank">GIPHY profilim</a></footer>
+  <a href="https://t.me/v0440" class="floating-button" target="_blank">Buyurtma berish</a>
+
+  <div style="margin-top: 50px;">
+    <h2>Mening sahifalarim</h2>
+    <div class="social-icons">
+      <a href="https://www.youtube.com/@Shers.stream" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube"></a>
+      <a href="https://www.tiktok.com/@shers.stream" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
+      <a href="https://www.instagram.com/im.sheralii/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram"></a>
+      <a href="https://t.me/v0440" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram"></a>
+    </div>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA_geIrm6qAJP8KOZ96OFYK2MOqfqZu8Nw",
+      authDomain: "shers-gifs.firebaseapp.com",
+      databaseURL: "https://shers-gifs-default-rtdb.firebaseio.com",
+      projectId: "shers-gifs",
+      storageBucket: "shers-gifs.appspot.com",
+      messagingSenderId: "584232581574",
+      appId: "1:584232581574:web:1fa299b284b61072d21ac7"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+  </script>
+
+  <!-- GIF render -->
+  <script>
+    const grid = document.getElementById("gif-grid");
+    db.ref("gifs").once("value").then(snapshot => {
+      const data = snapshot.val() || {};
+      const gifArray = Object.values(data).reverse();
+      gifArray.forEach(gif => {
+        const id = btoa(gif.url).replace(/=/g, '');
+        const box = document.createElement("div");
+        box.className = "gif-box";
+        box.innerHTML = `
+          <img src="${gif.url}" alt="${gif.title || 'GIF'}" onclick="copyGifLink(this)">
+          <p>${gif.title || ''}</p>
+          <div class="icon-buttons">
+            <button class="icon-button" onclick="shareGif('${gif.url}')"><img src="https://img.icons8.com/material-outlined/24/00ffa6/left--v1.png"/></button>
+            <button class="icon-button" onclick="copyGifLink(this.closest('.gif-box').querySelector('img'))"><img src="https://img.icons8.com/material-outlined/24/00ffa6/copy.png"/></button>
+            <button class="icon-button" onclick="likeGif('${id}')"><img src="https://img.icons8.com/material-outlined/24/00ffa6/like--v1.png"/></button>
+          </div>
+          <div class="like-counter" id="like-${id}">0 ❤️</div>
+          <div class="copied-message">Link nusxalandi! 📋</div>
+        `;
+        grid.appendChild(box);
+        db.ref(`likes/${id}`).on("value", snap => {
+          document.getElementById(`like-${id}`).textContent = (snap.val() || 0) + ' ❤️';
+        });
+      });
+    });
+
+    function copyGifLink(img) {
+      navigator.clipboard.writeText(img.src);
+      const msg = img.closest('.gif-box').querySelector('.copied-message');
+      msg.style.display = 'block';
+      setTimeout(() => msg.style.display = 'none', 2000);
+    }
+
+    function shareGif(url) {
+      if (navigator.share) {
+        navigator.share({ title: 'Ajoyib GIF', url });
+      } else {
+        alert("Brauzeringizda share funksiyasi yo‘q");
+      }
+    }
+
+    function likeGif(id) {
+      const ref = db.ref(`likes/${id}`);
+      ref.transaction(val => (val || 0) + 1);
+    }
+  </script>
+</body>
+
+</html>
