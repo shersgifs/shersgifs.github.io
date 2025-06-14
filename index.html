@@ -84,6 +84,11 @@
       color: #00ffa6;
       margin-top: 5px;
     }
+    .timestamp {
+      font-size: 0.85em;
+      color: #999;
+      margin-top: 6px;
+    }
     footer {
       margin-top: 40px;
       font-size: 14px;
@@ -141,6 +146,11 @@
   <h1>🎉 Sher's GIFs </h1>
   <p>Assalomu alaykum! Bu sahifada mening eng mashhur va kulgili GIFlarim to‘plangan. O‘zbekiston futbol terma jamoasi, vibe momentlar va kulgili so‘zlar — hammasi shu yerda!</p>
 
+  <section id="top-gifs">
+    <h2>🔥 TOP 5 Reytingdagi GIFlar (so'nggi 1 kun)</h2>
+    <div class="gif-grid" id="top-gif-grid"></div>
+  </section>
+
   <section id="popular-gifs">
     <h2>🔥 Eng ko‘p ishlatilgan GIFlar</h2>
     <div class="gif-grid" id="gif-grid"></div>
@@ -186,30 +196,52 @@
   <!-- GIF render -->
   <script>
     const grid = document.getElementById("gif-grid");
+    const topGrid = document.getElementById("top-gif-grid");
+
     db.ref("gifs").once("value").then(snapshot => {
       const data = snapshot.val() || {};
       const gifArray = Object.values(data).reverse();
+
       gifArray.forEach(gif => {
         const id = btoa(gif.url).replace(/=/g, '');
-        const box = document.createElement("div");
-        box.className = "gif-box";
-        box.innerHTML = `
-          <img src="${gif.url}" alt="${gif.title || 'GIF'}" onclick="copyGifLink(this)">
-          <p>${gif.title || ''}</p>
-          <div class="icon-buttons">
-            <button class="icon-button" onclick="shareGif('${gif.url}')"><img src="https://img.icons8.com/material-outlined/24/00ffa6/left--v1.png"/></button>
-            <button class="icon-button" onclick="copyGifLink(this.closest('.gif-box').querySelector('img'))"><img src="https://img.icons8.com/material-outlined/24/00ffa6/copy.png"/></button>
-            <button class="icon-button" onclick="likeGif('${id}')"><img src="https://img.icons8.com/material-outlined/24/00ffa6/like--v1.png"/></button>
-          </div>
-          <div class="like-counter" id="like-${id}">0 ❤️</div>
-          <div class="copied-message">Link nusxalandi! 📋</div>
-        `;
+        const box = createGifBox(gif, id);
         grid.appendChild(box);
+
         db.ref(`likes/${id}`).on("value", snap => {
-          document.getElementById(`like-${id}`).textContent = (snap.val() || 0) + ' ❤️';
+          const count = snap.val() || 0;
+          box.querySelector(".like-counter").textContent = count + ' ❤️';
+          box.dataset.likes = count;
         });
       });
+
+      // Load top 5 by likes
+      setTimeout(() => {
+        const allBoxes = [...grid.children];
+        allBoxes.sort((a, b) => b.dataset.likes - a.dataset.likes);
+        allBoxes.slice(0, 5).forEach(b => topGrid.appendChild(b.cloneNode(true)));
+      }, 1500);
     });
+
+    function createGifBox(gif, id) {
+      const box = document.createElement("div");
+      box.className = "gif-box";
+      box.dataset.likes = 0;
+      const date = new Date(gif.timestamp || Date.now());
+      const timeStr = date.toLocaleString();
+      box.innerHTML = `
+        <img src="${gif.url}" alt="${gif.title || 'GIF'}" onclick="copyGifLink(this)">
+        <p>${gif.title || ''}</p>
+        <div class="timestamp">🕒 ${timeStr}</div>
+        <div class="icon-buttons">
+          <button class="icon-button" onclick="shareGif('${gif.url}')"><img src="https://img.icons8.com/material-outlined/24/00ffa6/left--v1.png"/></button>
+          <button class="icon-button" onclick="copyGifLink(this.closest('.gif-box').querySelector('img'))"><img src="https://img.icons8.com/material-outlined/24/00ffa6/copy.png"/></button>
+          <button class="icon-button" onclick="likeGif('${id}')"><img src="https://img.icons8.com/material-outlined/24/00ffa6/like--v1.png"/></button>
+        </div>
+        <div class="like-counter" id="like-${id}">0 ❤️</div>
+        <div class="copied-message">Link nusxalandi! 📋</div>
+      `;
+      return box;
+    }
 
     function copyGifLink(img) {
       navigator.clipboard.writeText(img.src);
