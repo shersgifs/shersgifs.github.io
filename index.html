@@ -16,12 +16,26 @@
     body {
       font-family: 'Segoe UI', sans-serif;
       background: #0e0e0e;
-      color: #fff;
+      color: #f0f0f0;
       text-align: center;
       padding: 20px;
       margin: 0;
     }
-    h1, h2 { color: #00ffa6; }
+    h1, h2 {
+      color: #00ffa6;
+      font-weight: 700;
+    }
+    p, a {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    a {
+      color: #00ffa6;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
     .gif-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -34,6 +48,7 @@
       padding: 20px;
       border-radius: 12px;
       max-width: 300px;
+      box-shadow: 0 0 10px rgba(0,255,166,0.1);
     }
     img {
       width: 100%;
@@ -58,8 +73,9 @@
       filter: drop-shadow(0 0 2px #00ffa6);
     }
     .like-counter {
-      font-size: 0.9em;
-      color: #aaa;
+      font-size: 0.95em;
+      color: #00ffa6;
+      font-weight: 500;
       margin-top: 5px;
     }
     .copied-message {
@@ -71,7 +87,7 @@
     footer {
       margin-top: 40px;
       font-size: 14px;
-      color: #888;
+      color: #aaa;
     }
     .floating-button {
       position: fixed;
@@ -112,6 +128,10 @@
       width: 30px;
       height: 30px;
       border-radius: 50%;
+      transition: transform 0.2s ease;
+    }
+    .social-icons img:hover {
+      transform: scale(1.1);
     }
   </style>
 </head>
@@ -127,13 +147,13 @@
   </section>
 
   <section>
-    <h2>🌐 Bog‘lanish</h2>
-    <p>📞Telefon: <a href="tel:+16465100440">+1 (646) 510​‑0440</a></p>
-    <p>📱Telegram: <a href="https://t.me/v0440" target="_blank">Sherali</a></p>
-    <p>📧Email: <a href="mailto:help@shers.my">help@shers.my</a></p>
+    <h2>🌐 Aloqa</h2>
+    <p>📞 Telefon: <a href="tel:+16465100440">+1 (646) 510​‑0440</a></p>
+    <p>📱 Telegram: <a href="https://t.me/v0440" target="_blank">Sherali bilan bog‘lanish</a></p>
+    <p>📧 Email: <a href="mailto:help@shers.my">help@shers.my</a></p>
   </section>
 
-  <footer>🔗 Endi ko‘proq GIFlar: <a href="https://giphy.com/shersmy" target="_blank">GIPHY profilim</a></footer>
+  <footer>🔗 Yana ko‘proq GIFlar: <a href="https://giphy.com/shersmy" target="_blank">GIPHY profilim</a></footer>
   <a href="https://t.me/v0440" class="floating-button" target="_blank">Buyurtma berish</a>
 
   <div style="margin-top: 50px;">
