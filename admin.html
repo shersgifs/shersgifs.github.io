@@ -79,7 +79,7 @@
       const url = document.getElementById("gif-url").value;
       const title = document.getElementById("gif-title").value;
       const id = btoa(url).replace(/=/g, "");
-      db.ref("customGifs/" + id).set({ url, title });
+      db.ref("gifs/" + id).set({ url, title });
       document.getElementById("gif-url").value = "";
       document.getElementById("gif-title").value = "";
       loadGifList();
@@ -88,7 +88,7 @@
     function loadGifList() {
       const list = document.getElementById("gif-list");
       list.innerHTML = "";
-      db.ref("customGifs").once("value", snap => {
+      db.ref("gifs").once("value", snap => {
         const data = snap.val();
         if (data) {
           Object.entries(data).forEach(([key, gif]) => {
@@ -111,14 +111,14 @@
     function editGif(key, url, oldTitle) {
       const newTitle = prompt("Yangi nomni kiriting:", oldTitle);
       if (newTitle && newTitle !== oldTitle) {
-        db.ref("customGifs/" + key).update({ title: newTitle });
+        db.ref("gifs/" + key).update({ title: newTitle });
         loadGifList();
       }
     }
 
     function deleteGif(key) {
       if (confirm("Bu GIFni o‘chirishga ishonchingiz komilmi?")) {
-        db.ref("customGifs/" + key).remove();
+        db.ref("gifs/" + key).remove();
         loadGifList();
       }
     }
